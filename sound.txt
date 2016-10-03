@@ -1,0 +1,1038 @@
+#sound ^= <regex>:<path to sound file>, <regex>:<path>, ... (Ordered list option)
+﻿#最後に一致したものだけが再生される(前に再生されたものは中断される)
+#大文字で表示されていても実際は、プログラム内部では小文字として扱っている場合もある??ので注意
+#一致しているはずなのに音が出ないのは何故?
+#ブロックや回避は止めなくても良さそうだ
+#,は区切りとして認識されてしまうのでキーワードとしては使えない
+#![1/2]: If you hit something and the message ends with !, that means you did 7-17 damage. !!: 18-35. !!!: 36-71. !!!!: 72-143. !!!!!: 144-287. !!!!!!: 288+; and so on. Yikes!
+
+FMM0 := force_more_message
+FMM1 := force_more_message
+#FMM2 := force_more_message
+#FMM3 := force_more_message
+#FMM4 := force_more_message
+#FMMT := force_more_message
+
+# ALL STOP
+#FMMT += (\.|!+)
+#FMMT += [Yy]ou
+
+########
+sound += Welcome:sound\_Welcome.wav
+sound += You now have \d+ gold piece:sound\_Coin.wav
+sound += You die:sound\_Dead.wav
+
+sound += You are feeling hungry:sound\_Hungry.wav, You are feeling very hungry:sound\_VeryHungry.wav, You are near starving:sound\_NearStarving.wav, You are starving:sound\_Starving.wav
+sound += You are feeling thirsty:sound\_Thirsty.wav, You are feeling very thirsty:sound\_VeryThirsty.wav, You feel almost devoid of blood:sound\_NearBloodless.wav, You feel devoid of blood:sound\_Bloodless.wav
+
+sound += You.*? open .*?(door|gate):sound\_Open.wav, You.*? close .*?(door|gate):sound\_Close.wav, it creaks loudly!:sound\_Loudly.wav
+sound += Done exploring:sound\_DoneExploring.wav, Done searching:sound\_DoneExploring.wav
+sound += Partly explored:sound\_Incomplete.wav
+sound += You (climb|slide):sound\_Climb.wav, mysterious force pulls you upwards:sound\_Climb.wav
+sound += You fly .*?wards:sound\_Flying.wav
+sound += You plunge deeper into the Abyss:sound\_Flying.wav
+sound += You pass through the gate:sound\_Flying.wav
+sound += You pass into:sound\_Flying.wav
+sound += You enter a sewer:sound\_Flying.wav
+sound += (chunks of flesh in your inventory have rotted away)|(blood rots away):sound\_Rotted.wav
+
+# which
+#_TakeOff.wav
+sound += Where to:sound\_Where.wav
+sound += Identify which item:sound\_Identify.wav
+sound += Read which item:sound\_Read.wav
+sound += Forget which spell:sound\_Forget.wav
+sound += Charge which item:sound\_Charge.wav
+sound += You drop:sound\_Drop.wav
+#Drop what:sound\_Charged.wav
+#Auto Pickup
+sound += Deactivating autopickup:sound\_DeactivateAutoPickup.wav
+sound += Reactivating autopickup:sound\_ActivateAutoPickup.wav
+sound += [Yy]our wand.*? glows for a moment:sound\_Charged.wav
+sound += rod has recharged:sound\_Charged.wav
+sound += (Wear|Wield) which item:sound\_ChangeEquip.wav
+sound += Take off which item:sound\_ChangeEquip.wav
+sound += Quiver which item:sound\_ChangeEquip.wav
+sound += (Put on|Remove) which piece of jewellery:sound\_ChangeJewellery.wav
+sound += You aren't.*? rechargeable:sound\_CantRecharge.wav
+sound += Memorisation:sound\_Memorisation.wav
+sound += You finish memorising:sound\_Memorising.wav
+sound += You aren't.*? spellbooks:sound\_CannotMemorise.wav
+sound += You miscast:sound\_Miscast.wav
+sound += You fail to use your ability:sound\_FailSkill.wav
+sound += You don't have enough magic:sound\_NoMP.wav
+#(to cast that spell|at the moment)
+##
+sound += comes? (into view|up|down):sound\_FoundEnemy.wav
+FMM0 += comes? (into view|up|down)
+sound += appears from thin air:sound\_FoundEnemy.wav
+FMM0 += appears from thin air
+sound += (is|monsters) nearby:sound\_Nearby.wav
+# open the #これも必要かもしれないが関係ないものも反応する
+#is nearby #appears from thin airとセットかも?
+sound += is too close now for your liking:sound\_FoundEnemy.wav
+FMM0 += is too close now for your liking
+sound += You sense.*? monster:sound\_SenseMonster.wav
+FMM0 += You sense.*? monster
+sound += There is a strange disturbance nearby:sound\_StrangeDisturbance.wav
+FMM0 += There is a strange disturbance nearby
+##
+sound += Found.*? altar:sound\_FoundAltar.wav
+sound += Found.*? (stair(?!.*Temple)|escape hatch|gateway):sound\_FoundStair.wav
+sound += Found.*? (gate|portal):sound\_FoundGate.wav
+sound += Found.*? Ecumenical Temple:sound\_FoundTemple.wav
+sound += Found.*? scroll:sound\_FoundScroll.wav
+sound += Found.*? potion:sound\_FoundPotion.wav
+sound += Found.*? gold piece:sound\_FoundGold.wav
+sound += Found.*? book:sound\_FoundBook.wav
+sound += Found.*? (Shop|Store|Distillery|Boutique|Emporium|Antiques|Reserve|Wands|Sales|Books):sound\_FoundShop.wav
+sound += Found.*? (ration|pizza|fruit|jerky):sound\_FoundFood.wav
+sound += Found.*? ring(?! mail):sound\_FoundRing.wav
+sound += Found.*? amulet:sound\_FoundAmulet.wav
+# Evocable items
+sound += Found.*? wand:sound\_FoundWand.wav
+sound += Found.*? rod:sound\_FoundRod.wav
+sound += Found.*? deck of cards:sound\_FoundCards.wav
+sound += Found.*? fan of gales:sound\_FoundDevice.wav
+sound += Found.*? lamp of fire:sound\_FoundDevice.wav
+sound += Found.*? phial of floods:sound\_FoundDevice.wav
+sound += Found.*? stone of tremors:sound\_FoundDevice.wav
+sound += Found.*? box of beasts:sound\_FoundDevice.wav
+sound += Found.*? lantern of shadows:sound\_FoundDevice.wav
+sound += Found.*? sack of spiders:sound\_FoundDevice.wav
+sound += Found.*? horn of geryon:sound\_FoundDevice.wav
+sound += Found.*? crystal ball of energy:sound\_FoundDevice.wav
+sound += Found.*? disc of storms:sound\_FoundDevice.wav
+# Found Weapon
+sound += Found.*? (dagger|quick blade|short sword|rapier):sound\_FoundShortBlade.wav
+sound += Found.*?(falchion|scimitar|(?<!short )sword|(?<!quick )blade):sound\_FoundLongBlade.wav
+sound += Found.*?axe:sound\_FoundAxe.wav
+sound += Found.*?(whip|club|hammer|mace|flail|ningstar|sacred scourge):sound\_FoundMace.wav
+sound += Found.*?(spear|trident|halberd|scythe|trishula|glaive|bardiche):sound\_FoundPolearm.wav
+sound += Found.*?(staff|lajatang):sound\_FoundStaff.wav
+# Found Armour
+sound += Found.*? (shield|buckler):sound\_FoundShield.wav
+sound += Found.*? (cloak):sound\_FoundCloak.wav
+sound += Found.*? (hat|helmet):sound\_FoundHeadgear.wav
+sound += Found.*? (boots|barding):sound\_FoundBoots.wav
+sound += Found.*? (gloves):sound\_FoundGloves.wav
+sound += Found.*? (robe|mail|armour|skin|hide):sound\_FoundArmour.wav
+# Found Renged Weapon
+sound += Found.*? blowgun:sound\_FoundBlowgun.wav
+sound += Found.*?sling(?! bullet):sound\_FoundSling.wav
+sound += Found.*? crossbow:sound\_FoundCrossbow.wav
+sound += Found.*?bow:sound\_FoundBow.wav
+# Found Missiles
+sound += Found.*? needle:sound\_FoundNeedle.wav
+sound += Found.*? large rock:sound\_FoundRock.wav
+sound += Found.*? stone(?! of tremors):sound\_FoundStone.wav
+sound += Found.*? tomahawk:sound\_FoundTomahawk.wav
+sound += Found.*? javelin:sound\_FoundJavelin.wav
+sound += Found.*? throwing net:sound\_FoundNet.wav
+sound += Found.*? arrow:sound\_FoundArrow.wav
+sound += Found.*? bolt:sound\_FoundBolt.wav
+sound += Found.*? bullet:sound\_FoundBullet.wav
+#glowing|runed|embroidered
+#bloodstained|
+#
+sound += You found.*? (trap|shaft|web|pressure plate):sound\_FoundTrap.wav
+sound += You fall through a shaft:sound\_Fall.wav
+#sound += There is a shaft here:sound\_FoundTrap.wav
+#
+sound += Found the Orb of Zot:sound\_FoundOrb.wav
+sound += Found.*? rune of Zot:sound\_FoundRune.wav
+sound += You pick up the.*? rune and feel its power:sound\_PickUpRune.wav
+sound += You pick up the Orb of Zot:sound\_PickUpOrb.wav
+sound += The abyssal Rune of Zot can be found at this depth:sound\_RuneExist.wav
+FMM0 += The abyssal Rune of Zot can be found at this depth
+sound += guards the.*? rune of Zot:sound\_RuneExist.wav
+FMM0 += guards the.*? rune of Zot
+#This branch contains the demonic, glowing, magical, fiery and dark runes of Zot
+
+sound += You have reached level:sound\_LevelUp.wav
+FMM0 += You have reached level
+sound += Your.*? skill (increases|gained):sound\_SkillUp.wav
+FMM0 += Your.*? skill (increases|gained)
+sound += You have mastered:sound\_SkillUp.wav
+FMM0 += You have mastered
+
+sound += You spend a moment contemplating the meaning of.*:sound\_MeaningOfLife.wav
+
+#弓とクロスボウスリング吹き矢
+sound += (^Cast|^Casting):sound\_Casting.wav
+sound += (^Firing|^Throwing(?! skill)):sound\_Aim.wav
+sound += ^Use which ability?:sound\_Ability.wav
+
+sound += welcomes you:sound\_WelcomesYou.wav
+
+# 反応しない物としない物の違いは何?
+#sound += ^[a-zA-Z]\s-:sound\_PickUp.wav
+#sound += gained:sound\_PickUp.wav
+
+# dead
+sound += [Yy]our.*? (?<!almost )(dies|dead|destroyed|blown up|drowns):sound\_AlliesDead.wav
+#[Yy]our.*? (disappear|dissipates|vapourises)
+sound += [Yy]our(?! (urge|body)).*? (disappear|dissipates|vapourises):sound\_AlliesDisappear.wav
+sound += ^(?![Yy]our).*? (?<!almost )(dies|dead|destroyed|blown up|drowns):sound\_Die.wav
+sound += ^(?![Yy]our).*? (disappear|dissipates|vapourises):sound\_Disappear.wav
+sound += flickers out of the living world:sound\_Disappear.wav
+sound += You (blow up|destroy|kill):sound\_Kill.wav
+
+# Attack
+#demonic plant
+sound += Your.*? prevents? you from hitting:sound\_Prevent.wav
+FMM2 += Your.*? prevents? you from hitting
+sound += fumble your attack:sound\_Fumble.wav
+FMM2 += fumble your attack
+sound += (repels|deflects|phases out):sound\_Fend.wav
+FMM2 += (repels|deflects|phases out)
+sound += You.*? miss(?!ionary|iles)(?!.*? the (plant|demonic plant|fungus|toadstool|bush)):sound\_Miss.wav
+FMM2 += You.*? miss(?!ionary|iles)(?!.*? the (plant|demonic plant|fungus|toadstool|bush))
+sound += your attack passes through(?!.*? the (plant|demonic plant|fungus|toadstool|bush)):sound\_Miss.wav
+FMM2 += your attack passes through(?!.*? the (plant|demonic plant|fungus|toadstool|bush))
+sound += [Yy]ou (hit|open|pummel|smack|hammer|fracture|crave|sock|headbutt|kick|grab|squeeze|constrict|tentacle-slap|whack|thump|slash|slice|hack|chop|cut|lop|smite|bludgeon|pound|flatten|crush|carve|batter|pierce|thrash|maul|chomp|clumsily bash)(?!.*?( no |the (plant|demonic plant|fungus|toadstool|bush))):sound\_Hit.wav
+FMM2 += [Yy]ou (hit|open|pummel|smack|hammer|fracture||crave|sock|headbutt|kick|grab|squeeze|constrict|tentacle-slap|whack|thump|slash|slice|hack|chop|cut|lop|smite|bludgeon|pound|flatten|crush|carve|batter|pierce|thrash|maul|chomp|clumsily bash)(?!.*?( no |the (plant|demonic plant|fungus|toadstool|bush)))
+#short blade
+sound += [Yy]ou (strike|spit|stick|perforate|puncture|skewer|impale)(?!.*?( no |the (plant|demonic plant|fungus|toadstool|bush))):sound\_Hit.wav
+FMM2 += [Yy]ou (strike|spit|stick|perforate|puncture|skewer|impale)(?!.*?( no |the (plant|demonic plant|fungus|toadstool|bush)))
+# unarmed
+sound += [Yy]ou (scratch|bite|claw|eviscerate|mangle|nip|gouge|punch|peck)(?!.*?( no |the (plant|demonic plant|fungus|toadstool|bush))):sound\_Hit.wav
+FMM2 += [Yy]ou (scratch|bite|claw|eviscerate|mangle|nip|gouge|punch|peck)(?!.*?( no |the (plant|demonic plant|fungus|toadstool|bush)))
+#axe slice|slash|hack|lop|chop|cut|fracture|crave
+#whip whack|
+#scratch|bite|claw|eviscerate
+#mace sock|bludgeon|thump
+#thump|puncture|sock|impale|bludgeon|spit|pound|flatten|crush|stick|
+#slice|slash|open|cut
+#lop|hack
+sound += You (freeze|burn|melt)(?!.*?( no |the (plant|demonic plant|fungus|toadstool|bush))):sound\_Hit.wav
+FMM2 += You (freeze|burn|melt)(?!.*?( no |the (plant|demonic plant|fungus|toadstool|bush)))
+sound += explosion of sparks:sound\_Hit.wav
+FMM2 += explosion of sparks
+# brand pain
+sound += writhes in agony:sound\_Hit.wav
+FMM2 += writhes in agony
+# brand electrocution
+#There is a sudden explosion of sparks|electrocuted
+# Demonspwan Passive Freeze
+sound += is very cold:sound\_Hit.wav
+FMM2 += is very cold
+#magic leaks into the air
+
+sound += [Yy]ou(?!.*?the (plant|demonic plant|fungus|toadstool|bush)).*?but do no damage:sound\_NoDamage.wav
+FMM2 += [Yy]ou(?!.*?the (plant|demonic plant|fungus|toadstool|bush)).*?but do no damage
+sound += blocks your attack:sound\_NoDamage.wav
+FMM2 += blocks your attack
+#
+sound += You can't drain life:sound\_Invalid.wav
+FMM0 += You can't drain life
+sound += would do no harm:sound\_Invalid.wav
+FMM0 += would do no harm
+sound += Nothing appears to happen:sound\_Invalid.wav
+FMM0 += Nothing appears to happen
+
+# somethingを除外したほうが良いかも
+#FMM2
+sound += ^(?![Yy]our).*? misses(?!.*? (your?|the (plant|demonic plant|fungus|toadstool|bush))):sound\_Miss.wav
+FMM2 += ^(?![Yy]our).*? misses(?!.*? (your?|the (plant|demonic plant|fungus|toadstool|bush)))
+sound += ^(?![Yy]our).*? hits(?!.*? (no|your?|the (plant|demonic plant|fungus|toadstool|bush))):sound\_Hit.wav
+FMM2 += ^(?![Yy]our).*? hits(?!.*? (no|your?|the (plant|demonic plant|fungus|toadstool|bush)))
+sound += (convulses|blasted|engulfs|engulfed|strikes|struck)(?!.*? (your?|the (plant|demonic plant|fungus|toadstool|bush))):sound\_Hit.wav
+FMM2 += (convulses|blasted|engulfs|engulfed|strikes|struck)(?!.*? (your?|the (plant|demonic plant|fungus|toadstool|bush)))
+sound += pierces through.*?(?!.*? (your?|the (plant|demonic plant|fungus|toadstool|bush))):sound\_Hit.wav
+FMM2 += pierces through.*?(?!.*? (your?|the (plant|demonic plant|fungus|toadstool|bush)))
+sound += ^(?![Yy]our).*? hits(?!.*? (your?|the (plant|demonic plant|fungus|toadstool|bush))).*? no :sound\_NoDamage.wav
+FMM2 += ^(?![Yy]our).*? hits(?!.*? (your?|the (plant|demonic plant|fungus|toadstool|bush))).*? no
+sound += pierces through(?!.*? (your?|the (plant|demonic plant|fungus|toadstool|bush))).*? no :sound\_NoDamage.wav
+FMM2 += pierces through(?!.*? (your?|the (plant|demonic plant|fungus|toadstool|bush))).*? no
+
+# Damage
+sound += LOW HITPOINT WARNING:sound\_Dying.wav
+FMM0 += LOW HITPOINT WARNING
+sound += (hits|bites|stings|gores|claws|pecks|tramples|kicks|headbutts|trunk-slaps|slaps|shocks|pounces on|sears) you(?!.*? no|r):sound\_Damage.wav
+FMM3 += (hits|bites|stings|gores|claws|pecks|tramples|kicks|headbutts|trunk-slaps|slaps|shocks|pounces on|sears) you(?!.*? no|r)
+sound += (draws life force from you|strikes you|[Yy]ou are engulfed):sound\_Damage.wav
+FMM3 += (draws life force from you|strikes you|[Yy]ou are engulfed)
+sound += (?<!Strange energies course|Magic courses) through your body:sound\_Damage.wav
+FMM3 += (?<!Strange energies course|Magic courses) through your body
+sound += (?<!A profound silence|burst of hellfire) engulfs you(?! in water):sound\_Damage.wav
+FMM3 += (?<!A profound silence|burst of hellfire) engulfs you(?! in water)
+sound += (?<!frost )pass over you:sound\_Damage.wav
+FMM3 += (?<!frost )pass over you
+sound += shrieks (assaults|in) your mind:sound\_Damage.wav
+FMM3 += shrieks (assaults|in) your mind
+sound += A cacophony of accursed wailing tears at your sanity:sound\_Damage.wav
+FMM3 += A cacophony of accursed wailing tears at your sanity
+sound += Space (bends|warps).*? around you(?! for a moment):sound\_Damage.wav
+FMM3 += Space (bends|warps).*? around you(?! for a moment)
+sound += You are (blasted|struck|crushed):sound\_Damage.wav
+FMM3 += You are (blasted|struck|crushed)
+sound += [Yy]our life force is offered up:sound\_Damage.wav
+FMM3 += [Yy]our life force is offered up
+#Drain Life
+sound += draws from the surrounding life force:sound\_DrainLife.wav
+FMM3 += draws from the surrounding life force
+# Barb
+sound += The barbed spikes dig painfully into your body as you move:sound\_Damage.wav
+FMM3 += The barbed spikes dig painfully into your body as you move
+#sound += You feel a terrible chill:sound\_Damage.wav
+#FMM2+= You feel a terrible chill
+#
+sound += Your body is wracked with pain:sound\_Pain.wav
+FMM0 += Your body is wracked with pain
+sound +=  smites you:sound\_Smite.wav
+FMM3 += smites you
+sound += The burst of hellfire engulfs you:sound\_HellFire.wav
+FMM3 += The burst of hellfire engulfs you
+sound += You convulse:sound\_DispelUndead.wav
+FMM3 += You convulse
+sound += Ka-crash:sound\_Earthquake.wav
+FMM3 += Ka-crash
+#sound += sparks with electricity:sound\_Spark.wav
+#FMM3 += sparks with electricity
+#
+sound += Ouch! That really hurt:sound\_Ouch.wav
+FMM0 += Ouch! That really hurt
+sound += ^Helpless:sound\_Ouch.wav
+FMM0 += ^Helpless
+#The hellfire explodes
+
+#defence no damage
+#sound += ([Yy]ou block .*?)|(you but does no damage):sound\_Block.wav
+#FMM4 += ([Yy]ou block .*?)|(you but does no damage)
+#sound += misses you(?!r):sound\_Dodge.wav
+#FMM4 += misses you(?!r)
+#sound += You (?!see|drop|remove).*? resist(?!an):sound\_Resist.wav
+#FMM4 += You (?!see|drop|remove).*? resist(?!an)
+#repelled|deflected
+#splashes around in the water #水の上で敵が滑る時
+#You feel a surge of unholy energy #torment deffence
+#You reflect
+
+#
+sound += (seems to|dazzled|appears confused|is outlined in light|glows brighter|stops? moving|begins to bleed|grins madly)(?!.*you):sound\_Effect.wav
+FMM2 += (seems to|dazzled|appears confused|is outlined in light|glows brighter|stops? moving|begins to bleed|grins madly)(?!.*you)
+sound += (is poisoned|looks even sicker):sound\_Effect.wav
+FMM2 += (is poisoned|looks even sicker)
+sound += looks (drowsy|sick):sound\_Effect.wav
+FMM2 += looks (drowsy|sick)
+sound += moving.*? slowly:sound\_Effect.wav
+FMM2 += moving.*? slowly
+sound += [Yy]ou drain:sound\_Effect.wav
+FMM2 += [Yy]ou drain
+sound += is drained:sound\_Effect.wav
+FMM2 += id drained
+sound += dances? into air:sound\_Effect.wav
+FMM2 += dances? into air
+#death knight
+sound += fills with unholy energy:sound\_Effect.wav
+FMM2 += fills with unholy energy
+#invisible
+sound += flickers (and vanishes|out of sight):sound\_Effect.wav
+FMM2 += flickers (and vanishes|out of sight)
+# Resist
+sound += ^(?!.*?([Yy]ou|amulet.*?)).*?(unaffected|resist(?!an)):sound\_Resist.wav
+#Heal enemy
+sound += is healed:sound\_Heal.wav
+FMMT += is healed
+
+#Damage over time
+sound += You feel sick:sound\_Sick.wav
+sound += The wall burns you:sound\_Sick.wav
+#Status Bad
+sound += You are(?! no).*? poisoned:sound\_Poisoned.wav
+FMM1 += You are(?! no).*? poisoned
+sound += You are.*? confused:sound\_Confused.wav
+FMM1 += You are.*? confused
+sound += You suddenly lose the ability to move:sound\_Paralysed.wav
+FMM1 += You suddenly lose the ability to move
+sound += (It sticks to your)|(feels deathly cold)|(glows black for a moment):sound\_Cursed.wav
+FMM1 += (It sticks to your)|(feels deathly cold)|(glows black for a moment)
+sound += You feel yourself slow down|you feeling lethargic:sound\_Slowed.wav
+FMM1 += You feel yourself slow down|you feeling lethargic
+sound += You feel drained:sound\_Drained.wav
+FMM1 += You feel drained
+sound += [Yy]our flesh (rotting|start to rot|rots) away|You begin to rot:sound\_Rotting.wav
+FMM1 += [Yy]our flesh (rotting|start to rot|rots) away)|You begin to rot
+sound += Your body decomposes:sound\_Rotting.wav
+FMM1 += Your body decomposes
+sound += A sentinel's mark forms upon you:sound\_Mark.wav
+FMM1 += A sentinel's mark forms upon you
+sound += prevents you from becoming completely invisible:sound\_InvisiblePrevent.wav
+FMM1 += prevents you from becoming completely invisible
+#######################################################
+# Temporary Mutation
+sound += pulses with an eldritch light:sound\_Malmutate.wav
+FMM0 += pulses with an eldritch light
+sound += corrupter .*? its god (against|upon) you:sound\_Malmutate.wav
+FMMT += corrupter .*? its god (against|upon) you
+#sound += corruption grows within you:sound\_Malmutate.wav
+#FMM0 += corruption grows within you
+#
+sound += You feel extremely strange:sound\_Malmutate.wav
+FMM0 += You feel extremely strange
+# From contaiminate
+sound += Your body shudders with the violent release of wild energies:sound\_Mutation.wav
+FMMT += Your body shudders with the violent release of wild energies
+#ダメージも受ける
+sound += Strange energies course through your body:sound\_Malmutate.wav
+FMM0 += Strange energies course through your body
+#Evolve
+sound += You feel a genetic drift:sound\_Mutation.wav
+FMM0 += You feel a genetic drift
+#
+sound += You feel (odd|corrupt) for a moment:sound\_ResistMutation.wav
+FMM0 += You feel (odd|corrupt) for a moment
+#You feel somewhat dopey #Brain Feed?
+#######################################################
+sound += constricts you(?!r):sound\_Constrict.wav
+#FMM1 += constricts you(?!r)
+sound += You feel(?! less).*? vulnerable:sound\_Vulnerable.wav, Magic quickly surges around you:sound\_Vulnerable.wav
+FMM1 += You feel(?! less).*? vulnerable
+sound += You feel your attacks grow feeble:sound\_Weakend.wav
+FMM1 += You feel your attacks grow feeble
+sound += You (are caught in the web)|(become entangled):sound\_Held.wav
+FMM1 += You (are caught in the web)|(become entangled)
+#You are splashed with acid
+sound += corrodes your equipment:sound\_Corrode.wav
+FMM1 += corrodes your equipment
+sound += acid corrodes you(?!r):sound\_Corrode.wav
+FMM1 += acid corrodes you(?!r)
+sound += [Tt]he word of entropy corrodes you:sound\_Corrode.wav
+FMM1 += [Tt]he word of entropy corrodes you
+sound += You feel slowing down|Your limbs are stiffening:sound\_Petrify.wav
+FMM1 += You feel slowing down|Your limbs are stiffening
+sound += You have turned to stone:sound\_Stone.wav
+FMM1 += You have turned to stone
+sound += You turn into a sentient fungus:sound\_Fungus.wav
+FMM1 += You turn into a sentient fungus
+sound += You turn into an insubstantial wisp:sound\_Wisp.wav
+FMM1 += You turn into an insubstantial wisp
+sound += You are covered in liquid flames:sound\_Flames.wav
+#FMM1 += You are covered in liquid flames
+sound += Terrible wounds open up all over your body|Terrible wounds spread across more of your body:sound\_Flayed.wav
+FMM1 += Terrible wounds open up all over your body|Terrible wounds spread across more of your body
+sound += A profound silence engulfs you:sound\_Silence.wav
+FMM1 += A profound silence engulfs you
+sound += You fall asleep:sound\_Sleep.wav
+FMM1 += You fall asleep
+sound += You feel your power leaking away:sound\_MPDrain.wav
+FMM1 += You feel your power leaking away
+sound += The barbed spikes become lodged in your body:sound\_Barb.wav
+FMM1 += The barbed spikes become lodged in your body
+sound += You are mesmerised:sound\_Mesmerised.wav
+FMM1 += You are mesmerised
+sound += You feel a strange sense of stasis:sound\_Stasis.wav
+FMM1 += You feel a strange sense of stasis
+sound += You sense a powerful magical force warping space:sound\_PreventTeleport.wav
+FMM1 += You sense a powerful magical force warping space
+sound += You are encased in ice:sound\_Frozen.wav
+FMM1 += You are encased in ice
+sound += You are terrified:sound\_Fear.wav
+FMM1 += You are terrified
+sound += Your magical defenses are stripped away:sound\_ResistanceDown.wav
+FMM1 += Your magical defenses are stripped away
+sound += The searing flames burn away your fire resistance:sound\_ResistanceDown.wav
+FMM1 += The searing flames burn away your fire resistance
+sound += steals your:sound\_Steal.wav
+FMM1 += steals your
+sound += Roots grasp at your:sound\_Roots.wav
+FMM1 += Roots grasp at your
+sound += Roots rise up from beneath you(?!r):sound\_Roots.wav
+FMM1 += Roots rise up from beneath you(?!r)
+sound += You are.*? contaminated with residual magic:sound\_Contaminated.wav
+FMM1 += You are.*? contaminated with residual magic
+sound += engulfs you in water:sound\_Engulf.wav
+FMM1 += engulfs you in water
+sound += You are outlined in light:sound\_Corona.wav
+FMM1 += You are outlined in light
+sound += You turn into a filthy swine:sound\_Swine.wav
+FMM1 += You turn into a filthy swine
+sound += You feel.*? ill\.:sound\_Ill.wav
+FMM1 += You feel.*? ill\.
+sound += Your magic feels.*? tainted:sound\_SapMagic.wav
+FMM1 += Your magic feels.*? tainted
+sound += You feel sluggish:sound\_Sluggish.wav
+FMM1 += You feel sluggish
+sound += cannot teleport:sound\_Stasis.wav
+#
+sound += You feel you are being watched by something:sound\_FeelWatched.wav
+FMM0 += You feel you are being watched by something
+
+sound += You feel threatened and lose the ability to read scrolls:sound\_CantReadScroll.wav
+sound += You feel threatened and lose the ability to drink potions:sound\_CantDrinkPotion.wav
+#sound += You feed haunted
+
+#something reaches out for you
+#spikes nap loose
+
+sound += slime creatures merge to form:sound/_Merge.wav
+sound += slime creature suddenly becomes:sound/_Merge.wav
+
+sound += Careful:sound\_Careful.wav
+
+sound += You feel.*? weak(ened|er)(?! for a moment):sound\_StrDown.wav
+FMM1 += You feel.*? weak(ened|er)(?! for a moment)
+sound += You feel.*? (dopey|stupid)(?! for a moment):sound\_IntDown.wav
+FMM1 += You feel.*? (dopey|stupid)(?! for a moment)
+#sound += Something feeds on your intellect:sound\_IntDown.wav
+#FMM1 += Something feeds on your intellect
+sound += You feel.*? clumsy(?! for a moment):sound\_DexDown.wav
+FMM1 += You feel.*? clumsy(?! for a moment)
+
+# Status Up
+sound += You feel clever all of a sudden:sound\_Brilliance.wav
+sound += You feel agile all of a sudden:sound\_Agile.wav
+sound += You feel very mighty all of a sudden:sound\_Might.wav
+sound += You feel clever(?! all of a sudden):sound\_IntUp.wav
+sound += You feel stronger(?! all of a sudden):sound\_StrUp.wav
+sound += You feel agile(?! all of a sudden):sound\_DexUp.wav
+sound += You feel stealthy:sound\_StealthUp.wav
+# Felid
+sound += Extra life:sound\_ExtraLife.wav
+sound += Your.*? fur grows:sound\_FurGrows.wav
+#Demonspawn
+sound += You feel monstrous as your demonic heritage exerts itself:sound\_Monstrous.wav
+FMM0 += You feel monstrous as your demonic heritage exerts itself
+sound += Your demonic ancestry asserts itself:sound\_Mutation.wav
+FMM0 += Your demonic ancestry asserts itself
+
+sound += (almost over|starts to fade|lose your buoyancy):sound\_AlmostOver2.wav
+sound += Your icy (armour|shield) starts to melt:sound\_AlmostOver2.wav
+sound += Your skin is crawling a little less now:sound\_AlmostOver2.wav
+sound += Your protection from physical attacks is fading:sound\_AlmostOver2.wav
+sound += You start to feel a little (slower|faster):sound\_AlmostOver2.wav
+sound += Your shroud begins to fray at the edges:sound\_AlmostOver2.wav
+sound += Your transformation is almost over:sound\_AlmostOver2.wav
+sound += You flicker for a moment:sound\_AlmostOver2.wav
+sound += Your extra speed is starting to run out:sound\_AlmostOver2.wav
+sound += You start to feel less resistant:sound\_AlmostOver2.wav
+sound += You feel your anger subside:sound\_AlmostOver2.wav
+sound += You feel a strong urge to attack something:sound\_AlmostOver2.wav
+sound += You feel closer to the material plane:sound\_AlmostOver2.wav
+
+# Cure
+sound += You are no longer poison:sound\_Cured.wav
+sound += You can move again:sound\_Cured.wav
+sound += Your life force feels restored:sound\_Cured.wav
+sound += You wake up:sound\_Cured.wav
+sound += You feel your health improve:sound\_Cured.wav
+sound += spikes snap loose:sound\_Cured.wav
+# vampire
+sound += You feel life coursing into your body:sound\_Vampire.wav
+
+# Purge
+sound += (You repair your equipment)|(You feel (magically purged|refreshed):sound\_Purged.wav
+sound += You feel.*? less (?!in control of your magic|concerned|energetic|full|thirsty|protected from missiles|hungry):sound\_Purged.wav
+sound += You.*? break free:sound\_Purged.wav
+sound += You turn to flesh and can move again:sound\_Purged.wav
+sound += You stop sporulating:sound\_Purged.wav
+sound += You feel like a meek peon again:sound\_Purged.wav
+sound += You feel strangely alone:sound\_Purged.wav
+sound += You carefully extract the manticore spikes from your body:sound\_Purged.wav
+sound += You float gracefully downwards:sound\_Purged.wav
+sound += Your attacks no longer feel as feeble:sound\_Purged.wav
+sound += Your divine shield fades away:sound\_Purged.wav
+sound += Your resistance to elements expires:sound\_Purged.wav
+sound += Your skin feels tender:sound\_Purged.wav
+sound += your.*? fades away:sound\_Purged.wav
+sound += The grasping roots settle back into the ground:sound\_Purged.wav
+sound += Your.*? disappear:sound\_Purged.wav
+sound += Your magical contamination has completely faded away:sound\_Purged.wav
+sound += The water engulfing you falls away:sound\_Purged.wav
+sound += Your icy (armour|shield) evaporates:sound\_Purged.wav
+sound += The ice encasing you melts away:sound\_Purged.wav
+sound += Your magic seems less tainted:sound\_Purged.wav
+sound += You can read scrolls again:sound\_Purged.wav
+sound += You can drink potions again:sound\_Purged.wav
+sound += You are no longer corroded:sound\_Purged.wav
+sound += You feel your(?! power).*? returning:sound\_Purged.wav
+#
+sound += You feel less protected from missiles:sound\_DoneDeflectMissiles.wav
+FMM0 += You feel less protected from missiles
+# transformation
+sound += Your transformation has ended:sound\_Purged.wav
+sound += Your.*? revert to their normal proportions:sound\_Purged.wav
+sound += You warm up again:sound\_Purged.wav
+sound += You revert to your normal fleshy form:sound\_Purged.wav
+sound += You feel yourself come back to life:sound\_Purged.wav
+#:sound\_BatForm.wav
+# Done
+sound += Your song has ended:sound\_Done.wav
+sound += Your toxic aura wanes:sound\_Done.wav
+sound += You are no longer teleporting projectiles to their destination:sound\_Done.wav
+sound += Your shroud (falls apart|unravels):sound\_Done.wav
+sound += The abmient light retuns to normal:sound\_Done.wav
+sound += The sentinel's mark upon you fades away:sound\_Done.wav
+sound += You flicker back into view:sound\_Done.wav
+sound += Your skin stops crawling:sound\_Done.wav
+sound += You are firmly grounded in the material plane once more:sound\_Done.wav
+
+sound += It has a very clean taste:sound\_CureMutation.wav
+sound += You feel the corruption within you wane:sound\_CureMutation.wav
+#Jiyva
+sound += You feel cleansed:sound\_CureMutation.wav
+
+# HP & MP
+sound += You draw magical energy from your own body:sound\_ConvertMP.wav
+sound += You channel some magical energy:sound\_MPRestore.wav
+sound += You feel your power returning:sound\_MPRestore.wav
+sound += (You feel.*better)|(Magic courses through your body):sound\_Better.wav
+sound += HP restored:sound\_HPrestored.wav
+sound += Magic restored:sound\_MPrestored.wav
+#:sound\_Ambrosia.wav
+sound += You feel invigorated:sound\_Better.wav
+
+# Extend
+sound += You extend:sound\_Extend.wav
+sound += You feel.*? grow further away:sound\_Extend.wav
+#You feel the material plane grow further away
+# Status Benefit
+sound += (You feel blessed for a moment)|(You feel as if something is helping you):sound\_RemoveCurse.wav
+sound += You feel very buoyant:sound\_Fly.wav
+sound += You fly up into the air:sound\_Fly.wav
+sound += You feel in control:sound\_Control.wav
+sound += You feel your translocation being delayed:sound\_StartTeleportation.wav
+sound += You feel strangely unstable|You start to feel a little uncertain:sound\_Teleportation.wav
+sound += You may choose your destination:sound\_Destination.wav
+sound += (Your surroundings (suddenly seem different)|(seem slightly different))|(You feel uncertain):sound\_Teleport.wav
+sound += You are suddenly pulled into a different region of the Abyss:sound\_Teleport.wav
+##uncertain?
+sound += You feel fantastic!:sound\_Fantastic.wav
+sound += You blink:sound\_Teleport.wav
+sound += You feel yourself speed up:sound\_SpeedUp.wav
+sound += You feel protected:sound\_Protected.wav
+sound += You fade into invisibility:sound\_Invisible.wav
+sound += you go berserk!:sound\_Berserk.wav
+sound += You are exhausted:sound\_Exhausted.wav
+sound += Space distorts slightly along a thin shroud covering your body:sound\_Shroud.wav
+sound += You feel nimbler:sound\_Nimbler.wav
+sound += Your shield is strengthened:sound\_ShieldUp.wav
+sound += A crackling disc of dense vapour forms in the air:sound\_ShieldUp.wav
+sound += You feel that your aim is more steady:sound\_AimUp.wav
+sound += You feel perceptive:sound\_CanSeeInvisible.wav
+sound += You feel your power drawn to a protective spirit:sound\_SpiritShield.wav
+sound += You are filled with a great fortitude:sound\_Fortitude.wav
+sound += You become one with your weapon|Your bond become stronger:sound\_AccuracyUp.wav
+sound += Your skin (hardens|feels harder):sound\_ACUp.wav
+sound += Your stone body feels more resilient:sound\_ACUp.wav
+sound += A film of ice covers your body:sound\_ACUp.wav
+sound += You feel (resistant to|more protected from negative energy):sound\_ResistanceUp.wav
+sound += A forested plane collides here with a resounding crunch:sound\_Forest.wav
+sound += Your skin crawls:sound\_Regeneration.wav
+sound += You feel quick:sound\_Swift.wav
+sound += You start singing a song of slaying:sound\_Slay.wav
+sound += You begin teleporting projectiles to their destination:sound\_PortalProjectile.wav
+sound += You begin infusing your attacks with magical energy:sound\_Infusion.wav
+sound += It gets dark:sound\_Darkness.wav
+sound += You feel the strange sensation of being on two planes at once:sound\_EVUp.wav
+sound += You feel very safe from missiles:sound\_DeflectMissile.wav
+# transformation
+sound += You turn into a tree:sound\_Lignification.wav
+sound += One of your tentacles grows a vicious spike:sound\_Appendage.wav
+sound += You grow a pair of.* horns:sound\_Appendage.wav
+sound += You turn into a venomous arachnid creature:sound\_SpiderForm.wav
+sound += You turn into a creature of crystalline ice:sound\_IceForm.wav
+sound += You turn into a .*headed hydra:sound\_HydraForm.wav
+sound += Your tentacles turn into razor-sharp scythe blades:sound\_BladeHands.wav
+sound += You turn into a living statue of rough stone:sound\_StatueForm.wav
+sound += You turn into a fearsome dragon:sound\_DragonForm.wav
+sound += Your body is suffused with negative energy:sound\_Necromutation.wav
+#
+sound += You gain the combat prowess of a mighty hero:sound\_Heroic.wav
+sound += You can now deal lightning-fast blows:sound\_Finesse.wav
+#
+sound += A flood of memories washes over you:sound\_Experienced.wav
+sound += You feel.*more experienced:sound\_Experienced.wav
+sound += That felt strangely unrewarding:sound\_NoExperience.wav
+
+#scroll
+sound += You assume a fearsome visage:sound\_Threat.wav
+sound += You feel aware of your surroundings:sound\_Mapping.wav
+sound += Your memory of.*? unravels:sound\_Forgot.wav
+sound += You hear a loud clanging noise!:sound\_Alarm.wav
+sound += The scroll dissolves into smoke:sound\_Fog.wav
+sound += (The air around you briefly surges with heat)|(The creatures around you are filled with an inner flame!):sound\_Immolation.wav
+sound += Wisps of shadow whirl around you:sound\_Summoning.wav
+sound += A mana viper appears with a sibilant hiss:sound\_Summoning.wav
+sound += What kind of item would you like to acquire:sound\_Acquire.wav
+
+##
+sound += [Yy]our.*? glows (?!black).*? for a moment:sound\_Enchanted.wav
+sound += [Yy]our.*? emits a brilliant flash of light:sound\_Enchanted.wav
+
+#sound += You feel nervous for a moment
+
+# Hell effect
+sound += Something frightening happens:sound\_Hell.wav
+sound += You hear diabolical laughter:sound\_Hell.wav
+sound += You sense a hostile presence:sound\_Hell.wav
+sound += You sense an ancient evil watching you:sound\_Hell.wav
+sound += A gut-wrenching scream fills the air:sound\_Hell.wav
+sound += You shiver with fear:sound\_Hell.wav
+sound += You hear words spoken in a strange and terrible language:sound\_Hell.wav
+sound += You feel a terrible foreboding:sound\_Hell.wav
+sound += You feel lost and a long. long way from home:sound\_Hell.wav
+sound += You suddenly feel all small and vulnerable:sound\_Hell.wav
+sound += You smell brimstone:sound\_Hell.wav
+sound += "We do not forgive those who trespass against us!":sound\_Hell.wav
+sound += "We have you now!":sound\_Hell.wav
+sound += "Trespassers are not welcome here!":sound\_Hell.wav
+sound += "You will not leave this place.":sound\_Hell.wav
+sound += "You do not belong in this place!":sound\_Hell.wav
+sound += "Die. mortal!":sound\_Hell.wav
+sound += "Leave now. before it is too late!":sound\_Hell.wav
+#A chorus of moans calls out to you
+#Freezing gases pour from your.*
+
+#
+sound += You hear.*? "Zot":sound\_Zot.wav
+
+sound += Butcher.*? corpse:sound\_ButcherToMeat.wav
+sound += Mmm:sound\_Eating.wav, very bland:sound\_Eating.wav, not very appetising:sound\_Eating.wav
+sound += tastes (great|.*? good):sound\_GoodTaste.wav, really hit the spot!:sound\_GoodTaste.wav, delicious:sound\_GoodTaste.wav, Yummy:sound\_GoodTaste.wav, jerk-a-riffic:sound\_GoodTaste.wav
+sound += (tastes terrible|truly putrid|Yeuchh|Purrfect):sound\_BadTaste.wav
+sound += You (butcher.*? corpse|bottle the corpse's blood):sound\_Butcher.wav
+sound += (You aren't quite hungry enough to eat that!)|(You're too full to eat anything):sound\_Full.wav
+
+# shout
+sound += shout:sound\_Shout.wav
+sound += bark:sound\_Bark.wav
+sound += (?<!fire |erupts with a |frames )roar(?!ing| of battle):sound\_Roar.wav
+sound += howl:sound\_Roar.wav
+sound += bellow:sound\_Bellow.wav
+sound += growl:sound\_Growl.wav
+sound += croak:sound\_Croak.wav
+sound += screech:sound\_Screech.wav
+sound += hiss(?! of .*? sand):sound\_Hiss.wav
+sound += gurgles|gurgling:sound\_Gurgle.wav
+sound += shriek:sound\_Shriek.wav
+sound += buzz:sound\_Buzz.wav
+sound += You bump into:sound\_Bump.wav
+sound += trumpet:sound\_Trumpet.wav
+sound += crashing:sound\_Crashing.wav
+sound += moan:sound\_Moan.wav
+: if string.find(you.god(), "Jiyva") then
+sound += You hear a.*? slurping noise:sound\_Slurping.wav
+: end
+
+#Branch message
+sound += You feel an oppressive heat about you:sound\_Branch.wav
+sound += You hear the.*? rumble of a.*? avalanche of rocks:sound\_Branch.wav
+sound += You hear the roar of battle:sound\_Branch.wav
+sound += You hear the.*? creaking of a.*? portcullis:sound\_Branch.wav
+sound += You hear the hiss of flowing sand:sound\_Branch.wav
+sound += You hear the.*? hiss of a.*? avalanche of sand:sound\_Branch.wav
+sound += You hear a distant snort:sound\_Branch.wav
+sound += You hear the.*? tick(ing|s) of a.*? clock:sound\_Branch.wav
+sound += You feel a wave of frost pass over you:sound\_Branch.wav
+sound += You hear the.*? crackling of a.*? melting archway:sound\_Branch.wav
+sound += You hear the sound of rushing water:sound\_Branch.wav
+sound += You hear the.*? rusting of a.*? drain:sound\_Branch.wav
+sound += You hear the.*? crackle of (arcane power|a.*? magical portal):sound\_Branch.wav
+sound += You hear coins being counted:sound\_Branch.wav
+sound += You hear the .*? tolling of bell:sound\_Branch.wav
+
+#Labyrinth sound
+sound += You hear an odd grinding sound:sound\_Grainding.wav
+sound += You hear the creaking of ancient gears:sound\_Grainding.wav
+sound += The floor suddenly vibrates beneath you:sound\_Grainding.wav
+#You feel a sudden draft
+sound += [Mm]arking area around.*? as unsafe for travelling:sound\_UnsafeArea.wav
+
+#god
+sound += (?<!Jiyva )(pleased with you|aware of your devotion|is exalted by your worship|honoured by|appreciates):sound\_GodIsPleased.wav
+sound += grants you a gift:sound\_GodGift.wav
+sound += accepts your kill:sound\_Good.wav
+sound += forgives your:sound\_GodForgives.wav
+sound += You feel.*? guilty:sound\_GodIsAngry.wav
+FMM0 += You feel.*? guilty
+sound += does not appreciate desertion:sound\_GodIsAngry.wav
+sound += seems .*? displeased:sound\_GodIsAngry.wav
+sound += You have lost your religion:sound\_LostReligion.wav
+sound += You offer a prayer:sound\_Pray.wav
+sound += Your piety has decreased:sound\_DecreasePiety.wav
+sound += seems mollified:sound\_GodMollify.wav
+#God Wrath
+sound += sends monsters to punish you:sound\_GodWrath.wav
+FMM0 += sends monsters to punish you
+sound += "Feel my wrath!":sound\_GodWrath.wav
+FMM0 += "Feel my wrath!"
+#Trog
+sound += You feel the power of Trog in you as your rage grows:sound\_Extend.wav
+FMM0 += You feel the power of Trog in you as your rage grows
+#the Shining One
+sound += The golden flame engulfs:sound\_CleansingFlame.wav
+FMMT += The golden flame engulfs
+#Ru
+sound += Ru believes you are ready to make a new sacrifice:sound\_Sacrifice.wav
+#sound += is stunned by your will
+#sound += You redirect the.* attack
+#sound += You focus your will
+# Fedhas
+sound += The plants of the dungeon cease their hostilities:sound\_PlantsBecameAlly.wav
+sound += grows up from the ground:sound\_PlantGrow.wav
+sound += plant grows in the rain:sound\_PlantGrow.wav
+sound += Will you create these spores:sound\_CreateSpore.wav
+sound += can now pick up its mycelia and move:sound\_MovePlant.wav
+sound += The plant can now spit acid somewhat quickly:sound\_Evolve.wav
+sound += fruit is consumed:sound\_ConsumeFruit.wav
+#Lugonu
+sound += Lugonu claims:sound\_LugonuQuest.wav
+FMMT += Lugonu claims
+#Lugonu claims a new quest だと反応しない
+#Jiyva
+sound += Jiyva's power touches on your attributes:sound\_JiyvaStats.wav
+sound += Jiyva alters your body:sound\_JiyvaMutation.wav
+FMM0 += Jiyva alters your body
+sound += The nearby slimes join the prayer:sound\_JiyvaStop.wav
+sound += A thick mucus forms on your:sound\_Slimify.wav
+sound += liquefies into a slime creature:sound\_TurnIntoSlime.wav
+sound += Your tendrils lash around:sound\_Effect.wav
+#Yredelemnul
+sound += Yredelemnul grants you:sound\_GodGift.wav
+sound += You offer yourself to Yredelemnul. and fill with unholy energy:sound\_Mirror.wav
+sound += You draw life from your surroundings:sound\_DrainLife.wav
+sound += There are no remains here to animate:sound\_NoRemain.wav
+sound += The dead are (walking|slithering|hopping|flying):sound\_DeadWalk.wav
+sound += soul is now ripe for the taking:sound\_ReadyEnslaveSoul.wav
+sound += soul is now yours:sound\_EnslaveSoul.wav
+sound += You see nothing there you can enslave the soul of:sound\_NoRemain.wav
+sound += soul is .*? injured:sound\_SoulInjured.wav
+#Cheibriados
+sound += The flow of time bends around you:sound\_BendTime.wav
+sound += You warp the flow of time around you:sound\_TemporalDistortion.wav
+sound += You can feel time thicken for a moment:sound\_Slouch.wav
+sound += You step out of the flow of time:sound\_StepFromTime.wav
+#You return to the normal time flow
+#Qazlal
+sound += Clouds arounds you coalesce and take form:sound\_CloudsTakeForm.wav
+sound += Nature churns violently around you:sound\_DisasterArea.wav
+#
+sound += You begin recalling your allies:sound\_Recall.wav
+sound += Nothing appears to have answered your call:sound\_NoAllies.wav
+sound += looks more experienced:sound\_OrcExperienced.wav
+# Xom
+sound += You are now a.*? (toy|plaything) of Xom:sound\_XomFavorChange.wav
+sound += You are now Xom's teddy bear:sound\_XomFavorChange.wav
+sound += You are now a BORING thing:sound\_XomFavorChange.wav
+sound += Xom is getting BORED:sound\_XomBored.wav
+sound += Something appears at your feet:sound\_GodGift.wav
+sound += Xom is.*? amused:sound\_XomAmused.wav
+sound += Xom thinks this is hilarious:sound\_XomAmused.wav
+sound += You hear Xom's (maniacal laughter|avuncular chuckle):sound\_XomAmused.wav
+sound += Xom (smailes on you|smirks|titters|guffaws):sound\_XomAmused.wav
+#
+sound += Xom grants you (a minor favour|insight|some temporary aid):sound\_XomGrace.wav
+sound += "Let me alter your.* body.":sound\_XomGrace.wav
+sound += "You need some minor adjustments. mortal!":sound\_XomGrace.wav
+sound += "You need some minor improvements. mortal!":sound\_XomGrace.wav
+sound += "Take this token of my esteem.":sound\_XomGrace.wav
+sound += "Catch!":sound\_XomGrace.wav
+sound += "Here.":sound\_XomGrace.wav
+sound += "Go forth and cause havoc. mortal!":sound\_XomGrace.wav
+sound += "Go forth and destroy!":sound\_XomGrace.wav
+sound += "Go forth and redecorate. my child!":sound\_XomGrace.wav
+sound += "Time to have some fun!":sound\_XomGrace.wav
+#
+sound += Xom asks.*? to spice things up a little:sound\_XomRundom.wav
+sound += "Hum-dee-hum-bee-hum...":sound\_XomRundom.wav
+sound += Xom makes a sudden noise:sound\_XomRundom.wav
+sound += Xom's attention turns to you for a moment:sound\_XomRundom.wav
+sound += Xom's power.*? flows through you:sound\_XomRundom.wav
+sound += Xom's power.*? touches on a nearby monster:sound\_XomRundom.wav
+sound += Xom plays with reality for a moment:sound\_XomRundom.wav
+sound += "This might be better!":sound\_XomRundom.wav
+sound += "Forecast\: mostly cloudy.":sound\_XomRundom.wav
+sound += "You have grown too confident for your meagre worth":sound\_XomRundom.wav
+sound += "Ka-boom!":sound\_XomRundom.wav
+# around
+sound += You feel watched:sound\_XomRundom.wav
+sound += Xom alters the dungeon around you:sound\_XomRundom.wav
+sound += Everything around seems to assume a strange transparency:sound\_XomRundom.wav
+#Xom Bad
+sound += Xom's power.*? touches on you:sound\_XomRundom.wav
+sound += "Fight to survive. mortal.":sound\_XomRundom.wav
+sound += "You have displeased me. mortal":sound\_XomRundom.wav
+sound += Xom's power brushes against you for a moment:sound\_XomRundom.wav
+sound += "Heh heh heh...":sound\_XomRundom.wav
+sound += "Let's see if it's strong enough to survive yet.":sound\_XomRundom.wav
+sound += "Try this.":sound\_XomRundom.wav
+sound += Xom .*? notices you:sound\_XomRundom.wav
+#sound += "Serve the mortal. my children!"
+#sound += "See what I see. my child!"
+#sound += "Just a minor improvement..."
+#sound += "Time to have some fun!"
+#sound += Xom gives a demonstration of destructive might
+#sound += Xom opens a gate
+
+sound += Do you really want to:sound\_Really.wav
+sound += Do you wish to join:sound\_Really.wav
+sound += [Rr]eally.*?\?:sound\_Really.wav
+#(attack|fire|cast|walk|fly|target|wear|take off|wield|unwield|zap)
+sound += Are you sure you want to:sound\_Really.wav
+#Are you sure you want to (abandon this character and quit the game)|(to stumble around while confused and next to deep water)
+sound += The barbs in your skin will harm you if you moveF:sound\_Really.wav
+sound += Continue:sound\_Really.wav
+sound += Open it anyway:sound\_Really.wav
+sound += use anyway:sound\_Really.wav
+sound += Keep .*?ing:sound\_Keeping.wav
+sound += shall I ignore:sound\_Ignore.wav
+
+# Cat
+sound += You meow:sound\_Meow.wav
+sound += Natasha mumbles:sound\_Meow2.wav
+sound += Natasha (growls|hisses):sound\_Meow.wav
+sound += Natasha screams:sound\_Meow3.wav
+
+#sound += Unknown command
+
+#The divine experience confuses you
+# anger turns toward you for a moment
+
+#mutation message
+#Bad
+#You feel yourself wasting away #deteriorates
+#You feel your body start to fall apart #deteriorates
+#You feel frail #HP-10%
+#You feel less energetic #MP-10%
+#Your body twists and deforms #shaped body
+#You feel the urge to shout #shout1
+#You feel a strong urge to yell #shout2
+#You feel weirdly uncertain #teleport
+#You feel your magical essence link to your wands
+#Your vision blurs #scroll take time
+#You feel a little pissed off #berserk1
+#You feel angry #berserk2
+#Your connection to magic feels subdued #essy cast but less power
+#Your natural regeneration is weakened
+#Your system partially rejects artificial healing
+
+#Good
+#Your skin functions as natural camouflage
+#Fur sprouts all over your body
+#You feel genetically stable #resist mutation
+#You feel nature experimenting on you. Don't worry, failures die fast
+#You begin to heal more quickly
+#Your mouth lengthens and hardens into a beak #beak
+#Your thoughts seem clearer #clarity
+#You feel robust
+#You feel clever
+#You feel agile
+#You feel jittery #blink
+#You no longer feel jittery
+#Your skin becomes partially translucent
+#Your body becomes less viscous
+#Acid begins to drip from your mouth
+#Your throat feels hot #Breathe Fire
+#Your mouth feels dry
+#There is a nasty taste in your mouth for a moment
+#You feel a strange attunement to the structure of dungeons
+#You feek slightly disoriented
+#Your pseudopods become smaller
+#pair of horns grows on your head #horn1
+#The horns on your head grow some more #horn3
+#You feel resistant to negative energy #1
+#You feel a strange anaesthesia #2
+#An ominous black mark froms on your body #3? drain attack
+#You feel resistant to poisons #pison resitatnt
+#you feel resistant to heat #heat1
+#You feel less concerned about heat #heat2
+#Your blood runs red-hot! #heat3
+#You smell fire and brimstone #heat3
+#You feel resistant to cold #cold1
+#You feel less concerned about cold #cold2
+#Your skin feels very cold #cold3
+#A pair of antennae grows on your head #antennae1
+#The antennae on your head grow some more #antennae2
+#You feel the presence of a demonic guardian #guardian1
+#Your guardian grows in power #guardian2&3
+#You feel your magical essence from a protective shroud around your flesh #spiritshield1
+#You feel your magic shroud grow more resilient #spiritshield2
+#You feel your life force and your magical esence meld #spiritshield3
+#You begin to radiate repulsive energy #EV1
+#Your repulsive radiation grows stronger #EV2
+#Your feet thicken and deform #Hooves1
+#Your toenails lengthen and sharpen #Talons1
+#Your feet stretch into talons #Talons3
+#You feel energised by ancestry asserts itself #Powered by Pain1
+#You feel energised by your suffering #Powered by Pain1
+#You feel completely energised by your suffering #Powered by Pain2
+#You feel power flowing into your body #Augmentation1
+#You feel power rushing into your body #Augmentation2
+#You slip into the darkness of the dungeon #Nightstalker1
+#You slip further into the darkness #Nightstalker2
+#Large bone plates spread over more of your arms #1
+#Large bone plates cover your arms completely #3
+#Your fingernails sharpen #Claw2
+#Your hands twist into claws #Claw3
+#Spiny
+#Sharp spines emerge form parts of your body #Spiny1
+#Sharp spines emerge form more of your body #Spiny2
+#Sharp spines emerge form your entire body #Spiny3
+##Scales
+#scales grow over part of your body #Scales1
+#Rough .*? scales grow over part of your body #Scales1
+#scales spread over more of your body #Scales2
+#scales cover your body completely #Scales3
+##Regeneration
+#A wave of death washes over you #regeneration1
+#The wave of death grows in power #regeneration2&3
+#Miasma
+#You feel immune to roting #1Miasma
+#You begin to emit a foul stench of rot and decay #2Miasma
+#You begin to radiate miasma #3Miasma
+
+#Jiyva
+#Your body partially splits into a small jelly
+#Your skin becomes partially translucent
+#Your body becomes more translucent
+#Your body becomes stretchy
+#Your body becomes more malleable
+#Acid begins to drip from your mouth
+#Eyeballs grow over part of your body
+#Thin, slimy tendrils emerge from your body
+#Pseudopods emerge from your body
+#Your Pseudopods grow in size
+#Jiyva Cure
+#The jelly growth is reabsorbed into your body
+#The eyeballs on your body disappear
+#Your skin's translucency fades
+#Your skin returns to its normal opacity
+#Your body becomes less malleable
+#Your pseudopods retract into your body
+#Your pseudopods become smaller
+#Your tendrils retract into your bodyA
+
+##Cure mutation
+#You feel robust
+#You feel stronger
+#You feel clever
+#You feel agile
+#Your vision sharpens
+#You feel stable
+#You feel more energetic
+#You feel a little more calme
+#Your natural regeneration is strengthened
+#You feel.*?  healthier
+#Your magic regains it normal vibrancy #essy cast but less power
+#Your thinking seems confused
+#You no longer feel jittery
+#You no longer feel cold resistant
+#The horns on your head shrink away
+#Your talons dull and shrink into feet
+#You feel less resistant to hostile enchantments
+#Your urge to shout diappers
+#Your urge to yell lessens
+#Your magical essence is no longer linked to your wands
+#Tour body's shape seems more normal
+#Your hooves expand and flesh out into feet #Hooves?
+#Your talons dull and shrink into feet #Talons
+#A chill runs up and down your throat
+#You feel an ache in your throat
+#Your connection to magic feels.*? subdued
+#You feel genetically unstable
+#You feel slightly disoriented #??
+
+#Trog's voice booms out. "Feel my wrath!"
+#"You will pay for your transgression. mortal"
